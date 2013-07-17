@@ -4,14 +4,13 @@ namespace Boyhagemann\Html;
 
 require_once 'config.php';
 
-
 $builder = new Builder;
 $builder->insert($table = new Table, $tr = new Tr);
 
 $tr->insert(new Td('test1'));
 $tr->insert(new Td('test2'));
 $tr->insert(new Td('test3'));
-$tr->getValue()->each(function($td) {
+$tr->eachChild(function($td) {
 	$td->attr('class', 'test');
 
 	$td->insert($table2 = new Table);
@@ -23,6 +22,23 @@ $tr->getValue()->each(function($td) {
 $renderer = new Renderer;
 $html = $renderer->render($table);
 
-var_dump($html);
+?>
 
-print $html;
+
+<html>
+	<head>
+		<style>
+			table {
+				margin: 20px 0;
+			}
+			table tr td {
+				padding: 15px;
+			}
+		</style>
+	</head>
+	<body>
+
+		<pre><?php var_dump($html) ?></pre>
+		<?php echo $html ?>
+	</body>
+</html>

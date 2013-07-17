@@ -12,6 +12,14 @@ class Attributes
 	/**
 	 * @param array $values
 	 */
+	public function __construct($values = array())
+	{
+		$this->setValues($values);
+	}
+
+	/**
+	 * @param array $values
+	 */
 	public function setValues($values) {
 		$this->values = $values;
 	}

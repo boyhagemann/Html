@@ -25,7 +25,7 @@ class Element
 	 *
 	 * @param mixed $value
 	 */
-	public function __construct($value = null)
+	public function __construct($value = null, Array $attributes = array())
 	{
 		if(!$value) {
 			$value = new Collection;
@@ -33,7 +33,7 @@ class Element
 
 		$this->setValue($value);
 
-		$this->attributes = new Attributes;
+		$this->attributes = new Attributes($attributes);
 	}
 
 	/**
@@ -93,6 +93,19 @@ class Element
 	}
 
 	/**
+	 * @param $callback
+	 * @throws \Exception
+	 */
+	public function eachChild($callback)
+	{
+		if(!$this->getValue() instanceof Collection) {
+			throw new \Exception('Can only do an callback on an instance of \Boyhagemann\Html\Collection');
+		}
+
+		$this->getValue()->each($callback);
+	}
+
+	/**
 	 * @return \Boyhagemann\Html\Collection|string
 	 */
 	public function getValue() {
@@ -113,7 +126,6 @@ class Element
 		return $this->parent;
 	}
 
-
 	/**
 	 * @param \Boyhagemann\Html\Element $element
 	 * @return \Boyhagemann\Html\Element
@@ -121,7 +133,6 @@ class Element
 	public function insert(Element $element)
 	{
 		if(!$this->getValue() instanceof Collection) {
-//			throw new \Exception('Cannot add element because a text value is already set');
 			return;
 		}
 
