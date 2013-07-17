@@ -4,7 +4,7 @@ Html
 
 
 
-## Start with a new element
+## The Html Elements
 ```
 use Boyhagemann\Html\Table;
 
@@ -25,6 +25,8 @@ $tr->insert(new Td('This is a nice text');
 ## The Html Builder
 You can insert new elements to a parent element
 ```
+use Boyhagemann\Html\Builder;
+
 $builder new Builder;
 $builder->insert(new Table, 'tr');
 ```
@@ -55,7 +57,6 @@ $builder->register('myTd', 'Your\Html\Td');
 
 Now we can use this element throughout the whole project.
 ```
-
 $builder->register('table', new Table);
 
 $table  = $builder->resolve('table');
@@ -71,7 +72,6 @@ $builder->insert('myTable', 'myCustomElement', function($thead) {
 
 Or insert multiple elements and edit their properties
 ```
-$builder new Builder;
 $builder->insertMultiple(new Table, 'tr', 5, function($tr) {
 
 	// You can edit each table row now
@@ -84,6 +84,8 @@ $builder->insertMultiple(new Table, 'tr', 5, function($tr) {
 
 ## Render your html table as... html
 ```
+use Boyhagemann\Html\Renderer;
+
 $renderer = new Renderer;
 
 // The result is a string with valid html
