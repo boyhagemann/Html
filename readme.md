@@ -27,7 +27,9 @@ $builder->insert(new Table, 'tr');
 
 ### Register custom elements to the builder
 ```
-$builder->registerElement('myCustomElement', function() {
+
+// Register a callback, so you get a fresh instance every time
+$builder->register('myCustomElement', function() {
 
 	$element = new Element;
 	$element->setName('thead');
@@ -35,11 +37,17 @@ $builder->registerElement('myCustomElement', function() {
 
 	return $element;
 }
+
+// Or register an instance to use the same instance every time
+$builder->register('myTable', new Table);
+
+// Or register a class
+$builder->register('myTd', 'Your\Html\Td');
 ```
 
-Now we can use this element througout the whole project.
+Now we can use this element throughout the whole project.
 ```
-$builder->insert($table, 'myCustomElement', function($thead) {
+$builder->insert('myTable', 'myCustomElement', function($thead) {
 	$thead->insert(new Td('Title');
 	$thead->insert(new Td('Description');
 }

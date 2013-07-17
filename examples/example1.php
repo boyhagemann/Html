@@ -6,24 +6,25 @@ require_once 'config.php';
 
 $builder = new Builder;
 
-$builder->registerElement('thead', function() {
+$builder->register('myTable', new Table);
+$builder->register('thead', function() {
 	$thead = new Element;
 	$thead->setName('thead');
+	$thead->insert(new Td('Title'));
+	$thead->insert(new Td('Body'));
 	return $thead;
 });
 
-$table = new Table;
-$builder->insert($table, 'thead', function($thead) {
+$builder->insert('myTable', 'thead', function($thead) {
 	$thead->attr('class', 'test');
-	$thead->insert(new Td('Title'));
-	$thead->insert(new Td('Body'));
 });
-$builder->insertMultiple($table, 'Boyhagemann\Html\Tr', 5, function($tr, $i) {
+$builder->insertMultiple('myTable', 'Boyhagemann\Html\Tr', 5, function($tr, $i) {
 	$tr->insert(new Td('test' . $i, array('class' => 'test')));
 	$tr->insert(new Td('blaat' . $i));
 });
 
 $renderer = new Renderer;
+$table = $builder->resolve('myTable');
 $html = $renderer->render($table);
 
 ?>

@@ -11,11 +11,11 @@ class Builder
 
 	/**
 	 * @param $name
-	 * @param $callback
+	 * @param $callbackOrInstance
 	 */
-	public function registerElement($name, $callback)
+	public function register($name, $callbackOrInstance)
 	{
-		$this->elements[$name] = $callback;
+		$this->elements[$name] = $callbackOrInstance;
 	}
 
 	/**
@@ -23,10 +23,21 @@ class Builder
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	public function getElement($name)
+	public function resolve($name)
 	{
+		if($name instanceof Element) {
+			return $name;
+		}
+
 		if(isset($this->elements[$name])) {
-			return call_user_func($this->elements[$name]);
+
+			if($this->elements[$name] instanceof Element) {
+				return $this->elements[$name];
+			}
+
+			if(is_callable($this->elements[$name])) {
+				return call_user_func($this->elements[$name]);
+			}
 		}
 
 		if(class_exists($name)) {
@@ -40,9 +51,11 @@ class Builder
 	 * @param Element $root
 	 * @param $elementName
 	 */
-	public function insert(Element $root, $elementName, $callback = null)
+	public function insert($rootName, $elementName, $callback = null)
 	{
-		$element = $this->getElement($elementName);
+		$root = $this->resolve($rootName);
+		$element = $this->resolve($elementName);
+
 		$root->getValue()->addElement($element);
 
 		if($callback && is_callable($callback)) {
@@ -51,15 +64,17 @@ class Builder
 	}
 
 	/**
-	 * @param Element $root
-	 * @param 		  $elementName
-	 * @param         $count
-	 * @param         $callback
+	 * @param $rootName
+	 * @param $elementName
+	 * @param $count
+	 * @param $callback
 	 */
-	public function insertMultiple(Element $root, $elementName, $count, $callback)
+	public function insertMultiple($rootName, $elementName, $count, $callback)
 	{
+		$root = $this->resolve($rootName);
+
 		for($i = 0; $i < $count; $i++) {
-			$element = $this->getElement($elementName);
+			$element = $this->resolve($elementName);
 			call_user_func_array($callback, array($element, $i));
 			$root->insert($element);
 		}
