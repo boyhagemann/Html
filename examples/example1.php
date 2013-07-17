@@ -2,6 +2,10 @@
 
 namespace Boyhagemann\Html;
 
+use Boyhagemann\Html\Elements\Td;
+use Boyhagemann\Html\Elements\Tr;
+use Boyhagemann\Html\Elements\Table;
+
 require_once 'config.php';
 
 $builder = new Builder;
@@ -18,7 +22,7 @@ $builder->register('thead', function() {
 $builder->insert('myTable', 'thead', function($thead) {
 	$thead->attr('class', 'test');
 });
-$builder->insertMultiple('myTable', 'Boyhagemann\Html\Tr', 5, function($tr, $i) {
+$builder->insertMultiple('myTable', 'Boyhagemann\Html\Elements\Tr', 5, function($tr, $i) {
 	$tr->insert(new Td('test' . $i, array('class' => 'test')));
 	$tr->insert(new Td('blaat' . $i));
 });

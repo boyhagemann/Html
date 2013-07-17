@@ -7,7 +7,11 @@ class Builder
 	/**
 	 * @var array
 	 */
-	protected $elements;
+	protected $elements = array(
+		'table' => 'Boyhagemann\Html\Elements\Table',
+		'tr' 	=> 'Boyhagemann\Html\Elements\Tr',
+		'td' 	=> 'Boyhagemann\Html\Elements\Td',
+	);
 
 	/**
 	 * @param $name
