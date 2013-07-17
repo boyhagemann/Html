@@ -2,9 +2,18 @@
 Html
 ====
 
+This package makes it easy to build up html elements in PHP in a Object Oriented way.
+It allowes you to manipulate the basic html structure as easy and managable as possible.
+After the html is setup, it can be rendered as a string.
 
+## The Elements
 
-## The Html Elements
+This package comes is built on a simple Element class.
+It has attributes and can hold other elements nested as children.
+
+### Using the elements
+
+Starting with a new element is simple
 ```
 use Boyhagemann\Html\Table;
 
