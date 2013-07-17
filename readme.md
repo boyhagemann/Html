@@ -3,9 +3,8 @@ Html
 ====
 
 
-## Examples
 
-### Start with a new element
+## Start with a new element
 ```
 use Boyhagemann\Html\Table;
 
@@ -23,7 +22,7 @@ Insert an element with text
 $tr->insert(new Td('This is a nice text');
 ```
 
-### Use the builder to build html
+## The Html Builder
 You can insert new elements to a parent element
 ```
 $builder new Builder;
@@ -31,9 +30,9 @@ $builder->insert(new Table, 'tr');
 ```
 
 ### Register custom elements to the builder
-```
 
-// Register a callback, so you get a fresh instance every time
+Register a callback, so you get a fresh instance every time
+```
 $builder->register('myCustomElement', function() {
 
 	$element = new Element;
@@ -42,16 +41,27 @@ $builder->register('myCustomElement', function() {
 
 	return $element;
 }
+```
 
-// Or register an instance to use the same instance every time
+Or register an instance to use the same instance every time
+```
 $builder->register('myTable', new Table);
+```
 
-// Or register a class
+Or register a class
+```
 $builder->register('myTd', 'Your\Html\Td');
 ```
 
 Now we can use this element throughout the whole project.
 ```
+
+$builder->register('table', new Table);
+
+$table  = $builder->resolve('table');
+$tr 	= $builder->resolve('tr');
+$td 	= $builder->resolve('BoyHagemann\Html\Td');
+
 $builder->insert('myTable', 'myCustomElement', function($thead) {
 	$thead->insert(new Td('Title');
 	$thead->insert(new Td('Description');
