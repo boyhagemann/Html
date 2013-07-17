@@ -8,9 +8,9 @@ After the html is setup, it can be rendered as a string.
 
 The package is divided in three parts:
 
-* Elements
-* Builder
-* Renderer
+* [Elements] (#the-elements)
+* [Builder] (#the-html-builder)
+* [Renderer] (#the-renderer)
 
 ## The Elements
 
@@ -113,8 +113,10 @@ $builder->insertMultiple('myTable', 'tr', 5, function($tr) {
 });
 ```
 
-## Render your html table as... html
 
+## The renderer
+
+Render your html table as... html
 ```php
 use Boyhagemann\Html\Renderer;
 
