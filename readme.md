@@ -25,6 +25,27 @@ $builder new Builder;
 $builder->insert(new Table, 'tr');
 ```
 
+### Register custom elements to the builder
+```
+$builder->registerElement('myCustomElement', function() {
+
+	$element = new Element;
+	$element->setName('thead');
+	$element->attr('class', 'example-class');
+
+	return $element;
+}
+```
+
+Now we can use this element througout the whole project.
+```
+$builder->insert($table, 'myCustomElement', function($thead) {
+	$thead->insert(new Td('Title');
+	$thead->insert(new Td('Description');
+}
+```
+
+
 Or insert multiple elements and edit their properties
 ```
 $builder new Builder;
@@ -38,10 +59,10 @@ $builder->insertMultiple(new Table, 'tr', 5, function($tr) {
 });
 ```
 
-## Render your html table as... well... html
+## Render your html table as... html
 ```
 $renderer = new Renderer;
-$html = $renderer->render($table);
 
-// $html is a string with valid html
+// The result is a string with valid html
+$html = $renderer->render($table);
 ```
