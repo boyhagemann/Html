@@ -15,7 +15,12 @@ $table->attr('class', 'fancy-table');
 
 You can insert a new element easy
 ```
-$table->insert(new Td('This is a nice text');
+$table->insert($tr = new Tr());
+```
+
+Insert an element with text
+```
+$tr->insert(new Td('This is a nice text');
 ```
 
 ### Use the builder to build html
