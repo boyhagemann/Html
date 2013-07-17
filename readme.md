@@ -32,6 +32,7 @@ $tr->eachChild(function($td, $i) {
 	$td->attr('class', 'my-class')
 	$td->setValue('My value ' . $i);
 });
+```
 
 ## The Html Builder
 You can insert new elements to a parent element
