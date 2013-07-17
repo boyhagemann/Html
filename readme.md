@@ -67,6 +67,7 @@ Or register a class
 $builder->register('myTd', 'Your\Html\Td');
 ```
 
+### Use the registered elements
 Now we can use this element throughout the whole project.
 ```
 $builder->register('table', new Table);
@@ -74,17 +75,19 @@ $builder->register('table', new Table);
 $table  = $builder->resolve('table');
 $tr 	= $builder->resolve('tr');
 $td 	= $builder->resolve('BoyHagemann\Html\Td');
+```
 
+We can use it to insert elements
+```
 $builder->insert('myTable', 'myCustomElement', function($thead) {
 	$thead->insert(new Td('Title');
 	$thead->insert(new Td('Description');
 }
 ```
 
-
 Or insert multiple elements and edit their properties
 ```
-$builder->insertMultiple(new Table, 'tr', 5, function($tr) {
+$builder->insertMultiple('myTable', 'tr', 5, function($tr) {
 
 	// You can edit each table row now
 	$tr->attr('class', 'my-row-class');
