@@ -9,6 +9,10 @@ Html
 use Boyhagemann\Html\Table;
 
 $table = new Table;
+```
+
+Change the attributes of an element
+```
 $table->attr('class', 'fancy-table');
 ```
 
@@ -21,6 +25,13 @@ Insert an element with text
 ```
 $tr->insert(new Td('This is a nice text');
 ```
+
+You can edit each child element easily
+```
+$tr->eachChild(function($td, $i) {
+	$td->attr('class', 'my-class')
+	$td->setValue('My value ' . $i);
+});
 
 ## The Html Builder
 You can insert new elements to a parent element
