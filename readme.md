@@ -90,7 +90,7 @@ $builder->register('table', new Table);
 
 $table  = $builder->resolve('table');
 $tr 	= $builder->resolve('tr');
-$td 	= $builder->resolve('BoyHagemann\Html\Td');
+$td 	= $builder->resolve('BoyHagemann\Html\Elements\Td');
 ```
 
 We can use it to insert elements
