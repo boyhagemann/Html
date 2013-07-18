@@ -21,7 +21,7 @@ $builder->register('thead', function() {
 $builder->insert('table', 'thead', function($thead) {
 	$thead->attr('class', 'test');
 });
-$builder->insertMultiple('table', 'Boyhagemann\Html\Elements\Tr', 5, function($tr, $i) {
+$builder->insertMultiple('table', 'tr', 5, function($tr, $i) {
 	$tr->insert(new Td('test' . $i, array('class' => 'test')));
 	$tr->insert(new Td('blaat' . $i));
 });

@@ -68,8 +68,7 @@ class Builder
 			}
 
 			if(class_exists($this->elements[$name])) {
-				$this->elements[$name] = new $this->elements[$name];
-				return $this->elements[$name];
+				return new $this->elements[$name];
 			}
 		}
 
