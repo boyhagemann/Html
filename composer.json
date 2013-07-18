@@ -1,6 +1,6 @@
 {
 	"name": "boyhagemann/html",
 	"description": "Build up html elements in PHP in a Object Oriented way",
-	"keywords": ["php", "hmtl", "builder", "generator"],
+	"keywords": ["framework", "laravel"],
 	"minimum-stability": "dev"
 }

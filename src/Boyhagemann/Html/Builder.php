@@ -8,9 +8,33 @@ class Builder
 	 * @var array
 	 */
 	protected $elements = array(
-		'table' => 'Boyhagemann\Html\Elements\Table',
-		'tr' 	=> 'Boyhagemann\Html\Elements\Tr',
-		'td' 	=> 'Boyhagemann\Html\Elements\Td',
+		'address' 	=> 'Boyhagemann\Html\Elements\Address',
+		'article' 	=> 'Boyhagemann\Html\Elements\Article',
+		'aside' 	=> 'Boyhagemann\Html\Elements\Aside',
+		'base' 		=> 'Boyhagemann\Html\Elements\Base',
+		'body' 		=> 'Boyhagemann\Html\Elements\Body',
+		'footer' 	=> 'Boyhagemann\Html\Elements\Footer',
+		'h1' 		=> 'Boyhagemann\Html\Elements\H1',
+		'h2' 		=> 'Boyhagemann\Html\Elements\H2',
+		'h3' 		=> 'Boyhagemann\Html\Elements\H3',
+		'h4' 		=> 'Boyhagemann\Html\Elements\H4',
+		'h5' 		=> 'Boyhagemann\Html\Elements\H5',
+		'h6' 		=> 'Boyhagemann\Html\Elements\H6',
+		'head' 		=> 'Boyhagemann\Html\Elements\Head',
+		'header' 	=> 'Boyhagemann\Html\Elements\Header',
+		'html' 		=> 'Boyhagemann\Html\Elements\Html',
+		'link' 		=> 'Boyhagemann\Html\Elements\Link',
+		'main' 		=> 'Boyhagemann\Html\Elements\Main',
+		'meta' 		=> 'Boyhagemann\Html\Elements\Meta',
+		'nav' 		=> 'Boyhagemann\Html\Elements\Nav',
+		'noscript'	=> 'Boyhagemann\Html\Elements\Noscript',
+		'script' 	=> 'Boyhagemann\Html\Elements\Script',
+		'section' 	=> 'Boyhagemann\Html\Elements\Section',
+		'style' 	=> 'Boyhagemann\Html\Elements\Style',
+		'table' 	=> 'Boyhagemann\Html\Elements\Table',
+		'td' 		=> 'Boyhagemann\Html\Elements\Td',
+		'title' 	=> 'Boyhagemann\Html\Elements\Title',
+		'tr' 		=> 'Boyhagemann\Html\Elements\Tr',
 	);
 
 	/**
