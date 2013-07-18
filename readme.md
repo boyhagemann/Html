@@ -96,7 +96,7 @@ $td 	= $builder->resolve('BoyHagemann\Html\Elements\Td');
 We can use it to insert elements
 ```php
 $builder->insert('myTable', 'myCustomElement', function($thead) {
-	$thead->insert(new Td('Title');
+	$thead->insert(new Td('Title');``````````````````````````````````````````````````````````````````````````````````````````
 	$thead->insert(new Td('Description');
 }
 ```
