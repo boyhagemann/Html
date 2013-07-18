@@ -58,6 +58,8 @@ $tr->eachChild(function($td, $i) {
 ```
 
 ## The Html Builder
+With the builder you can build the html and manipulate the structure of the elements.
+
 You can insert new elements to a parent element
 ```php
 use Boyhagemann\Html\Builder;
@@ -104,7 +106,7 @@ $td 	= $builder->resolve('BoyHagemann\Html\Elements\Td');
 We can use it to insert elements
 ```php
 $builder->insert('myTable', 'myCustomElement', function($thead) {
-	$thead->insert(new Td('Title');``````````````````````````````````````````````````````````````````````````````````````````
+	$thead->insert(new Td('Title');
 	$thead->insert(new Td('Description');
 }
 ```
