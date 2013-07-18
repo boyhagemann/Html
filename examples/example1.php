@@ -10,6 +10,12 @@ require_once 'config.php';
 
 $builder = new Builder;
 
+$builder->instance('table', function() {
+	$table = new Table;
+	$table->attr('id', 'myTable');
+	return $table;
+});
+$builder->instance('table');
 $builder->register('thead', function() {
 	$thead = new Element;
 	$thead->setName('thead');

@@ -39,11 +39,37 @@ class Builder
 
 	/**
 	 * @param $name
+	 * @return bool
+	 */
+	public function isRegistered($name)
+	{
+		return isset($this->elements[$name]);
+	}
+
+	/**
+	 * @param $name
 	 * @param $callbackOrInstance
 	 */
 	public function register($name, $callbackOrInstance)
 	{
 		$this->elements[$name] = $callbackOrInstance;
+	}
+
+	/**
+	 * @param $name
+	 * @param $callbackOrInstance
+	 * @return Element
+	 */
+	public function instance($name, $callbackOrInstance = null)
+	{
+		if(!$this->isRegistered($name) && $callbackOrInstance) {
+			$this->register($name, $callbackOrInstance);
+		}
+
+		$element = $this->resolve($name);
+		$this->elements[$name] = $element;
+
+		return $element;
 	}
 
 	/**
