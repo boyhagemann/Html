@@ -66,6 +66,10 @@ class Builder
 			if(is_callable($this->elements[$name])) {
 				return call_user_func($this->elements[$name]);
 			}
+
+			if(class_exists($this->elements[$name])) {
+				return new $this->elements[$name];
+			}
 		}
 
 		if(class_exists($name)) {

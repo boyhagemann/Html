@@ -10,7 +10,6 @@ require_once 'config.php';
 
 $builder = new Builder;
 
-$builder->register('myTable', new Table);
 $builder->register('thead', function() {
 	$thead = new Element;
 	$thead->setName('thead');
@@ -19,16 +18,16 @@ $builder->register('thead', function() {
 	return $thead;
 });
 
-$builder->insert('myTable', 'thead', function($thead) {
+$builder->insert('table', 'thead', function($thead) {
 	$thead->attr('class', 'test');
 });
-$builder->insertMultiple('myTable', 'Boyhagemann\Html\Elements\Tr', 5, function($tr, $i) {
+$builder->insertMultiple('table', 'Boyhagemann\Html\Elements\Tr', 5, function($tr, $i) {
 	$tr->insert(new Td('test' . $i, array('class' => 'test')));
 	$tr->insert(new Td('blaat' . $i));
 });
 
 $renderer = new Renderer;
-$table = $builder->resolve('myTable');
+$table = $builder->resolve('table');
 $html = $renderer->render($table);
 
 ?>
