@@ -1,4 +1,3 @@
-
 Html
 ====
 
@@ -11,6 +10,15 @@ The package is divided in three parts:
 * [Elements] (#the-elements)
 * [Builder] (#the-html-builder)
 * [Renderer] (#the-renderer)
+
+## How to install
+The easiest way to use this package is with Composer. Add the following line to your composer.json file:
+```json
+"require": {
+	"boyhagemann/html": "dev-master"
+}
+```
+
 
 ## The Elements
 
