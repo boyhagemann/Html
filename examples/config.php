@@ -9,3 +9,5 @@ require_once '../src/Boyhagemann/Html/Text.php';
 require_once '../src/Boyhagemann/Html/Elements/Table.php';
 require_once '../src/Boyhagemann/Html/Elements/Tr.php';
 require_once '../src/Boyhagemann/Html/Elements/Td.php';
+require_once '../src/Boyhagemann/Html/Elements/Thead.php';
+require_once '../src/Boyhagemann/Html/Elements/Thead.php';

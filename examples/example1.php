@@ -19,17 +19,17 @@ $builder->instance('table');
 $builder->register('thead', function() {
 	$thead = new Element;
 	$thead->setName('thead');
-	$thead->insert(new Td('Title'));
-	$thead->insert(new Td('Body'));
+	$thead->append(new Td('Title'));
+	$thead->append(new Td('Body'));
 	return $thead;
 });
 
-$builder->insert('table', 'thead', function($thead) {
+$builder->append('table', 'thead', function($thead) {
 	$thead->attr('class', 'test');
 });
-$builder->insertMultiple('table', 'tr', 5, function($tr, $i) {
-	$tr->insert(new Td('test' . $i, array('class' => 'test')));
-	$tr->insert(new Td('blaat' . $i));
+$builder->appendMany('table', 'tr', 5, function($tr, $i) {
+	$tr->append(new Td('test' . $i, array('class' => 'test')));
+	$tr->append(new Td('blaat' . $i));
 });
 
 $renderer = new Renderer;

@@ -5,22 +5,22 @@ namespace Boyhagemann\Html;
 require_once 'config.php';
 
 $builder = new Builder;
-$builder->insert($table = new Table, $tr = new Tr);
 
-$tr->insert(new Td('test1'));
-$tr->insert(new Td('test2'));
-$tr->insert(new Td('test3'));
-$tr->eachChild(function($td) {
-	$td->attr('class', 'test');
-
-	$td->insert($table2 = new Table);
-	$table2->insert($tr2 = new Tr);
-	$tr2->insert($td2 = new Td);
-	$td2->setValue('test111');
+$builder->instance('table')->append('tr')->appendMany('td', 5, function($td) {
+	$td->text('Test');
+});
+$builder->instance('table')->prepend('thead', function($thead) {
+	$thead->append('td')->text('Title');
+	$thead->append('td')->text('Body');
+	$thead->append('td')->text('Test 3');
+	$thead->append('td')->text('Test 4');
+	$thead->append('td')->text('Test 5');
 });
 
+
+
 $renderer = new Renderer;
-$html = $renderer->render($table);
+$html = $renderer->render($builder->resolve('table'));
 
 ?>
 

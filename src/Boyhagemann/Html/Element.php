@@ -19,7 +19,15 @@ class Element
 	 */
 	protected $value;
 
+	/**
+	 * @var Attributes
+	 */
 	protected $attributes;
+
+	/**
+	 * @var Builder
+	 */
+	protected $builder;
 
 	/**
 	 *
@@ -64,6 +72,22 @@ class Element
 	 */
 	public function getAttributes() {
 		return $this->attributes;
+	}
+
+	/**
+	 * @param Builder $builder
+	 */
+	public function setBuilder(Builder $builder)
+	{
+		$this->builder = $builder;
+	}
+
+	/**
+	 * @return Builder
+	 */
+	public function getBuilder()
+	{
+		return $this->builder;
 	}
 
 	/**
@@ -127,16 +151,13 @@ class Element
 	}
 
 	/**
-	 * @param \Boyhagemann\Html\Element $element
-	 * @return \Boyhagemann\Html\Element
+	 * @param $method
+	 * @param $vars
+	 * @return mixed
 	 */
-	public function insert(Element $element)
+	public function __call($method, $vars)
 	{
-		if(!$this->getValue() instanceof Collection) {
-			return;
-		}
-
-		$this->getValue()->addElement($element);
-		return $this;
+		array_unshift($vars, $this);
+		return call_user_func_array(array($this->getBuilder(), $method), $vars);
 	}
 }

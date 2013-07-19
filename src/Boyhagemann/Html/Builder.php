@@ -35,13 +35,14 @@ class Builder
 		'td' 		=> 'Boyhagemann\Html\Elements\Td',
 		'title' 	=> 'Boyhagemann\Html\Elements\Title',
 		'tr' 		=> 'Boyhagemann\Html\Elements\Tr',
+		'thead' 	=> 'Boyhagemann\Html\Elements\Thead',
 	);
 
 	/**
 	 * @param $name
 	 * @return bool
 	 */
-	public function isRegistered($name)
+	public function has($name)
 	{
 		return isset($this->elements[$name]);
 	}
@@ -62,7 +63,7 @@ class Builder
 	 */
 	public function instance($name, $callbackOrInstance = null)
 	{
-		if(!$this->isRegistered($name) && $callbackOrInstance) {
+		if(!$this->has($name) && $callbackOrInstance) {
 			$this->register($name, $callbackOrInstance);
 		}
 
@@ -79,62 +80,109 @@ class Builder
 	 */
 	public function resolve($name)
 	{
-		if($name instanceof Element) {
-			return $name;
-		}
+		$element = null;
 
-		if(isset($this->elements[$name])) {
+
+		if($name instanceof Element) {
+			$element = $name;
+		}
+		elseif(isset($this->elements[$name])) {
 
 			if($this->elements[$name] instanceof Element) {
-				return $this->elements[$name];
+				$element = $this->elements[$name];
 			}
-
-			if(is_callable($this->elements[$name])) {
-				return call_user_func($this->elements[$name]);
+			elseif(is_callable($this->elements[$name])) {
+				$element = call_user_func($this->elements[$name]);
 			}
-
-			if(class_exists($this->elements[$name])) {
-				return new $this->elements[$name];
+			elseif(class_exists($this->elements[$name])) {
+				$element = new $this->elements[$name];
 			}
 		}
-
-		if(class_exists($name)) {
-			return new $name;
+		elseif(class_exists($name)) {
+			$element = new $name;
 		}
 
-		throw new \Exception(sprintf('Element "%s" could not be resolved', $name));
+		if(!$element instanceof Element) {
+			throw new \Exception(sprintf('Element "%s" could not be resolved', $name));
+		}
+
+		$element->setBuilder($this);
+
+		return $element;
+	}
+
+	/**
+	 * @param $rootName
+	 * @param $text
+	 * @return Element
+	 */
+	public function text($rootName, $text)
+	{
+		$root = $this->resolve($rootName);
+		$root->setValue($text);
+
+		return $root;
+	}
+
+	public function prepend($rootName, $elementName, $callback = null)
+	{
+		return $this->insert($rootName, $elementName, 'before', $callback);
+	}
+
+	public function append($rootName, $elementName, $callback = null)
+	{
+		return $this->insert($rootName, $elementName, 'after', $callback);
+	}
+
+	public function prependMany($rootName, $elementName, $count, $callback = null)
+	{
+		return $this->insertMultiple($rootName, $elementName, $count, 'before', $callback);
+	}
+
+	public function appendMany($rootName, $elementName, $count, $callback = null)
+	{
+		return $this->insertMultiple($rootName, $elementName, $count, 'after', $callback);
 	}
 
 	/**
 	 * @param Element $root
 	 * @param $elementName
+	 * @param $position
+	 * @param $callback
 	 */
-	public function insert($rootName, $elementName, $callback = null)
+	protected function insert($rootName, $elementName, $position, $callback = null)
 	{
 		$root = $this->resolve($rootName);
 		$element = $this->resolve($elementName);
 
-		$root->getValue()->addElement($element);
+		$root->getValue()->addElement($element, $position);
 
 		if($callback && is_callable($callback)) {
 			call_user_func_array($callback, array($element));
 		}
+
+		return $element;
 	}
 
 	/**
 	 * @param $rootName
 	 * @param $elementName
 	 * @param $count
+	 * @param $position
 	 * @param $callback
 	 */
-	public function insertMultiple($rootName, $elementName, $count, $callback)
+	protected function insertMultiple($rootName, $elementName, $count, $position, $callback)
 	{
 		$root = $this->resolve($rootName);
 
 		for($i = 0; $i < $count; $i++) {
 			$element = $this->resolve($elementName);
-			call_user_func_array($callback, array($element, $i));
-			$root->insert($element);
+
+			if($callback && is_callable($callback)) {
+				call_user_func_array($callback, array($element, $i));
+			}
+
+			$this->insert($root, $element, $position);
 		}
 	}
 }

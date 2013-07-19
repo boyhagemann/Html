@@ -4,6 +4,9 @@ namespace Boyhagemann\Html;
 
 class Collection
 {
+	const POSITION_BEFORE 	= 'before';
+	const POSITION_AFTER	= 'after';
+
 	/**
 	 * @var array
 	 */
@@ -25,9 +28,26 @@ class Collection
 		return $this->elements;
 	}
 
-	public function addElement($element)
+	/**
+	 * @param $element
+	 * @param $position
+	 * @throws \Exception
+	 */
+	public function addElement($element, $position)
 	{
-		$this->elements[] = $element;
+		switch($position) {
+
+			case self::POSITION_BEFORE:
+				array_unshift($this->elements, $element);
+				break;
+
+			case self::POSITION_AFTER:
+				$this->elements[] = $element;
+				break;
+
+			default:
+				throw new \Exception('Not a correct position given');
+		}
 	}
 
 	/**
